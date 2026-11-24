@@ -1,0 +1,1884 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>研一算法 & 大模型转型 · 3个月同步学习看板</title>
+  <style>
+    :root {
+      --bg: #f6f8fc;
+      --surface: #ffffff;
+      --surface-2: #f1f5f9;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --primary: #4f46e5;
+      --primary-soft: rgba(79, 70, 229, 0.10);
+      --emerald: #059669;
+      --emerald-soft: rgba(5, 150, 105, 0.10);
+      --amber: #d97706;
+      --amber-soft: rgba(217, 119, 6, 0.12);
+      --purple: #9333ea;
+      --purple-soft: rgba(147, 51, 234, 0.10);
+      --rose: #e11d48;
+      --rose-soft: rgba(225, 29, 72, 0.10);
+      --shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 6px 18px rgba(15, 23, 42, 0.04);
+      --radius: 14px;
+      --heat-0: #e2e8f0;
+      --heat-1: #bbf7d0;
+      --heat-2: #4ade80;
+      --heat-3: #16a34a;
+      --heat-4: #166534;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0b1120;
+      --surface: #111827;
+      --surface-2: #1e293b;
+      --border: #1f2937;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --primary: #818cf8;
+      --primary-soft: rgba(129, 140, 248, 0.16);
+      --emerald: #34d399;
+      --emerald-soft: rgba(52, 211, 153, 0.14);
+      --amber: #fbbf24;
+      --amber-soft: rgba(251, 191, 36, 0.14);
+      --purple: #c084fc;
+      --purple-soft: rgba(192, 132, 252, 0.14);
+      --rose: #fb7185;
+      --rose-soft: rgba(251, 113, 133, 0.14);
+      --shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+      --heat-0: #1e293b;
+      --heat-1: #064e3b;
+      --heat-2: #047857;
+      --heat-3: #10b981;
+      --heat-4: #6ee7b7;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .mono { font-family: "JetBrains Mono", "Fira Code", Consolas, monospace; }
+
+    /* Layout */
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 20px 20px 60px;
+    }
+
+    /* Header */
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+
+    .brand h1 {
+      font-size: 1.32rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .badge-live {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+
+    .brand-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .topbar-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn:hover { background: var(--surface-2); transform: translateY(-1px); }
+
+    .btn-primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+    .btn-primary:hover { filter: brightness(1.08); background: var(--primary); }
+
+    .btn-emerald {
+      background: var(--emerald);
+      border-color: var(--emerald);
+      color: #fff;
+    }
+    .btn-emerald:hover { filter: brightness(1.08); background: var(--emerald); }
+
+    .btn-sm { padding: 5px 10px; font-size: 0.78rem; border-radius: 8px; }
+
+    /* KPI Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .kpi-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .kpi-label { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
+    .kpi-value { font-size: 1.65rem; font-weight: 800; margin-top: 4px; letter-spacing: -0.02em; }
+    .kpi-sub { font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; }
+
+    .lc-stepper {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .step-btn {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* Analytics Row */
+    .analytics-grid {
+      display: grid;
+      grid-template-columns: 1.45fr 1fr;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .card-title {
+      font-size: 0.96rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-hint { font-size: 0.78rem; color: var(--text-muted); }
+
+    /* Pillar Bars + Radar */
+    .pillar-wrap {
+      display: grid;
+      grid-template-columns: 155px 1fr;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .pillar-list { display: flex; flex-direction: column; gap: 11px; }
+    .pillar-row-head {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .bar-track {
+      height: 8px;
+      background: var(--surface-2);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.35s ease;
+    }
+
+    /* Heatmap */
+    .heatmap-card { margin-bottom: 18px; }
+    .heatmap-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(22px, 1fr));
+      gap: 5px;
+    }
+
+    .heat-cell {
+      aspect-ratio: 1;
+      border-radius: 5px;
+      background: var(--heat-0);
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.62rem;
+      color: transparent;
+      border: 1.5px solid transparent;
+      transition: transform 0.12s ease, border-color 0.12s ease;
+    }
+    .heat-cell:hover { transform: scale(1.18); z-index: 5; border-color: var(--primary); }
+    .heat-cell.is-today { border-color: var(--rose); box-shadow: 0 0 0 2px var(--rose-soft); }
+    .heat-cell.is-cny { outline: 1.5px dashed var(--amber); outline-offset: -2px; }
+    .heat-cell[data-level="1"] { background: var(--heat-1); }
+    .heat-cell[data-level="2"] { background: var(--heat-2); }
+    .heat-cell[data-level="3"] { background: var(--heat-3); }
+    .heat-cell[data-level="4"] { background: var(--heat-4); }
+
+    .heat-legend {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .heat-swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+
+    /* Main Tabs */
+    .nav-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+      background: var(--surface);
+      padding: 6px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .tab-btn {
+      padding: 9px 16px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tab-btn:hover { color: var(--text); background: var(--surface-2); }
+    .tab-btn.active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Week Workspace */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .pill-group { display: flex; flex-wrap: wrap; gap: 6px; }
+    .pill {
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .pill.active {
+      background: var(--primary-soft);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .week-layout {
+      display: grid;
+      grid-template-columns: 270px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .week-sidebar {
+      position: sticky;
+      top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      max-height: calc(100vh - 40px);
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+
+    .week-nav-item {
+      text-align: left;
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 11px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .week-nav-item:hover { border-color: var(--primary); }
+    .week-nav-item.active {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+      box-shadow: 0 0 0 1px var(--primary);
+    }
+    .week-nav-item.is-current::after {
+      content: "本周";
+      float: right;
+      font-size: 0.68rem;
+      padding: 1px 6px;
+      border-radius: 999px;
+      background: var(--rose);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .wn-top {
+      font-size: 0.78rem;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2px;
+    }
+    .wn-title {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 6px;
+    }
+    .wn-bar { height: 5px; background: var(--surface-2); border-radius: 999px; overflow: hidden; }
+    .wn-bar-fill { height: 100%; background: var(--primary); transition: width 0.25s ease; }
+
+    /* Week Detail Card */
+    .week-detail-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+
+    .week-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+    .tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 9px;
+      border-radius: 999px;
+    }
+    .tag-phase { background: var(--primary-soft); color: var(--primary); }
+    .tag-date { background: var(--surface-2); color: var(--text-muted); }
+    .tag-current { background: var(--rose-soft); color: var(--rose); }
+    .tag-done { background: var(--emerald-soft); color: var(--emerald); }
+
+    .week-detail-title { font-size: 1.22rem; font-weight: 800; }
+    .week-detail-note { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
+
+    .section-block {
+      margin-bottom: 18px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+    }
+
+    .section-block.deliverable {
+      background: var(--purple-soft);
+      border-color: rgba(147, 51, 234, 0.25);
+    }
+
+    .section-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .task-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .task-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 9px 11px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      transition: all 0.15s ease;
+    }
+    .task-item:hover { border-color: var(--primary); }
+    .task-item.checked { opacity: 0.68; }
+    .task-item.checked .task-text { text-decoration: line-through; color: var(--text-muted); }
+
+    .task-cb {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--primary);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .task-body { flex: 1; font-size: 0.87rem; }
+    .task-links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 5px; }
+    .ext-link {
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-decoration: none;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: var(--primary-soft);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .ext-link:hover { filter: brightness(0.92); text-decoration: underline; }
+
+    .del-task-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.9rem;
+      padding: 0 4px;
+    }
+    .del-task-btn:hover { color: var(--rose); }
+
+    /* Custom Task & Notes */
+    .add-task-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .input, .select, .textarea {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 9px;
+      padding: 8px 11px;
+      font-size: 0.85rem;
+      font-family: inherit;
+    }
+    .input:focus, .select:focus, .textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .textarea { width: 100%; min-height: 92px; resize: vertical; }
+
+    /* LeetCode Review Tab */
+    .review-grid {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .form-stack { display: flex; flex-direction: column; gap: 10px; }
+    .form-label { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); margin-bottom: 3px; display: block; }
+
+    .lc-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+    .lc-table th, .lc-table td {
+      text-align: left;
+      padding: 10px 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .lc-table th { color: var(--text-muted); font-size: 0.76rem; font-weight: 700; }
+
+    .due-badge {
+      background: var(--rose-soft);
+      color: var(--rose);
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+    .ok-badge {
+      background: var(--emerald-soft);
+      color: var(--emerald);
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    /* Resource Hub Tab */
+    .res-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 14px;
+    }
+
+    .res-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .diag-box {
+      background: var(--amber-soft);
+      border: 1px solid rgba(217, 119, 6, 0.28);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      margin-bottom: 16px;
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.52);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 16px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 440px;
+      padding: 20px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+    }
+
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background: #0f172a;
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: all 0.2s ease;
+      z-index: 200;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .analytics-grid { grid-template-columns: 1fr; }
+      .week-layout { grid-template-columns: 1fr; }
+      .week-sidebar {
+        position: static;
+        flex-direction: row;
+        overflow-x: auto;
+        max-height: none;
+        padding-bottom: 6px;
+      }
+      .week-nav-item { min-width: 175px; }
+      .review-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .kpi-grid { grid-template-columns: 1fr; }
+      .pillar-wrap { grid-template-columns: 1fr; }
+      .container { padding: 12px 12px 48px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Top Bar -->
+    <header class="topbar">
+      <div class="brand">
+        <h1>
+          研一算法 & 大模型转型 · 3个月学习看板
+          <span class="badge-live" id="liveSyncBadge">同步中...</span>
+        </h1>
+        <div class="brand-sub">
+          <span>周期：<strong class="mono">2026.11.25 – 2027.02.25</strong>（2029届管科硕士转型）</span>
+          <span id="todayText"></span>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-emerald" id="btnCheckin">✓ 今日打卡</button>
+        <button class="btn btn-primary" id="btnJumpCurrent">定位本周</button>
+        <button class="btn" id="btnExport">导出备份</button>
+        <button class="btn" id="btnImport">导入恢复</button>
+        <input type="file" id="importFile" accept=".json" style="display:none" />
+        <button class="btn" id="btnTheme" title="切换深浅色">🌓 主题</button>
+      </div>
+    </header>
+
+    <!-- KPI Row -->
+    <section class="kpi-grid">
+      <div class="card kpi-card">
+        <div>
+          <div class="kpi-label">总体任务完成率</div>
+          <div class="kpi-value mono" id="kpiOverallPct">0%</div>
+          <div class="kpi-sub" id="kpiOverallDetail">0 / 0 项任务</div>
+        </div>
+        <svg width="68" height="68" viewBox="0 0 68 68">
+          <circle cx="34" cy="34" r="28" fill="none" stroke="var(--surface-2)" stroke-width="7"></circle>
+          <circle id="overallRing" cx="34" cy="34" r="28" fill="none" stroke="var(--primary)" stroke-width="7"
+            stroke-linecap="round" stroke-dasharray="175.93" stroke-dashoffset="175.93"
+            transform="rotate(-90 34 34)" style="transition: stroke-dashoffset 0.4s ease;"></circle>
+        </svg>
+      </div>
+
+      <div class="card kpi-card">
+        <div style="width:100%">
+          <div class="kpi-label">LeetCode Hot 100 刷题进度</div>
+          <div style="display:flex;align-items:baseline;justify-content:space-between;">
+            <div class="kpi-value mono"><span id="kpiLcCount">0</span> <span style="font-size:0.95rem;color:var(--text-muted);font-weight:600">/ 100</span></div>
+            <div class="lc-stepper">
+              <button class="step-btn" id="lcMinus" title="减少1题">−</button>
+              <button class="step-btn" id="lcPlus" title="增加1题">+</button>
+            </div>
+          </div>
+          <div class="bar-track" style="margin-top:8px;">
+            <div class="bar-fill" id="kpiLcBar" style="width:0%;background:var(--emerald);"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card kpi-card">
+        <div>
+          <div class="kpi-label">打卡连续天数 & 累计学时</div>
+          <div class="kpi-value mono"><span id="kpiStreak">0</span><span style="font-size:0.9rem;font-weight:600;color:var(--text-muted)"> 天</span> · <span id="kpiHours">0</span><span style="font-size:0.9rem;font-weight:600;color:var(--text-muted)">h</span></div>
+          <div class="kpi-sub" id="kpiCheckinSub">点击右上角“今日打卡”记录每日投入</div>
+        </div>
+      </div>
+
+      <div class="card kpi-card">
+        <div>
+          <div class="kpi-label">时间同步 & 当前焦点</div>
+          <div class="kpi-value" id="kpiCurrentWeekTitle" style="font-size:1.25rem;">第 1 周</div>
+          <div class="kpi-sub" id="kpiTimelineSub">距离 2027 春节 (2.6) 还有 -- 天</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visual Analytics Row -->
+    <section class="analytics-grid">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📊 12周学习进度柱状图</div>
+          <div class="card-hint">点击任意柱子可直接跳转对应周次</div>
+        </div>
+        <div id="weeklyChartBox" style="width:100%;overflow-x:auto;"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">🎯 四大核心维度均衡度</div>
+          <div class="card-hint">自动随任务勾选更新</div>
+        </div>
+        <div class="pillar-wrap">
+          <div id="radarChartBox" style="display:flex;justify-content:center;"></div>
+          <div class="pillar-list" id="pillarList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 93-Day Heatmap -->
+    <section class="card heatmap-card">
+      <div class="card-header">
+        <div class="card-title">🔥 93天学习打卡热力图（2026.11.25 – 2027.02.25）</div>
+        <div class="heat-legend">
+          <span>点击任意日期补卡/修改学时</span>
+          <span style="margin-left:8px;">少</span>
+          <span class="heat-swatch" style="background:var(--heat-0)"></span>
+          <span class="heat-swatch" style="background:var(--heat-1)"></span>
+          <span class="heat-swatch" style="background:var(--heat-2)"></span>
+          <span class="heat-swatch" style="background:var(--heat-3)"></span>
+          <span class="heat-swatch" style="background:var(--heat-4)"></span>
+          <span>多</span>
+          <span style="margin-left:8px;color:var(--amber);">虚线框=春节休整</span>
+        </div>
+      </div>
+      <div class="heatmap-grid" id="heatmapGrid"></div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button class="tab-btn active" data-tab="planner">📅 12周同步计划</button>
+      <button class="tab-btn" data-tab="review">🧠 艾宾浩斯错题本 <span id="dueCountBadge" class="tag tag-current" style="display:none">0</span></button>
+      <button class="tab-btn" data-tab="resources">📚 B站课单 & 科研排坑指南</button>
+    </nav>
+
+    <!-- Tab 1: 12-Week Planner -->
+    <section class="tab-panel active" id="tab-planner">
+      <div class="filter-bar">
+        <div class="pill-group" id="phasePills">
+          <button class="pill active" data-phase="all">全部 12 周</button>
+          <button class="pill" data-phase="1">阶段一：PyTorch与底层 (W1-W4)</button>
+          <button class="pill" data-phase="2">阶段二：微调与Agent (W5-W8)</button>
+          <button class="pill" data-phase="3">阶段三：代表作与收尾 (W9-W12)</button>
+        </div>
+        <div style="font-size:0.8rem;color:var(--text-muted);">
+          数据自动保存于浏览器本地，建议每周导出一次 JSON 备份
+        </div>
+      </div>
+
+      <div class="week-layout">
+        <aside class="week-sidebar" id="weekSidebar"></aside>
+        <main class="card" id="weekDetail"></main>
+      </div>
+    </section>
+
+    <!-- Tab 2: LeetCode Ebbinghaus Review -->
+    <section class="tab-panel" id="tab-review">
+      <div class="review-grid">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">➕ 记录新错题 / 难题</div>
+            <div class="card-hint">15分钟法则：第3天、第7天复盘</div>
+          </div>
+          <form id="lcForm" class="form-stack">
+            <div>
+              <label class="form-label">题号与名称（如：146. LRU 缓存）</label>
+              <input class="input" id="lcTitle" style="width:100%" required placeholder="例：3. 无重复字符的最长子串" />
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              <div>
+                <label class="form-label">专题分类</label>
+                <select class="select" id="lcTopic" style="width:100%">
+                  <option>哈希 / 双指针</option>
+                  <option>滑动窗口 / 数组</option>
+                  <option>链表 / 矩阵</option>
+                  <option>二叉树</option>
+                  <option>图论 / 回溯</option>
+                  <option>二分 / 栈与堆</option>
+                  <option>贪心 / 动态规划</option>
+                  <option>其他高频题</option>
+                </select>
+              </div>
+              <div>
+                <label class="form-label">难度</label>
+                <select class="select" id="lcDiff" style="width:100%">
+                  <option>中等</option>
+                  <option>简单</option>
+                  <option>困难</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="form-label">核心思路 / 时间空间复杂度</label>
+              <textarea class="textarea" id="lcNote" style="min-height:70px" placeholder="例：哈希表+双向链表，get/put 均 O(1)，空间 O(capacity)"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="justify-content:center;">添加到复习队列</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">📋 错题复习队列（自动计算第3天 / 第7天复盘提醒）</div>
+            <div class="pill-group" id="lcFilterPills">
+              <button class="pill active" data-lcfilter="all">全部</button>
+              <button class="pill" data-lcfilter="due">今日待复习</button>
+              <button class="pill" data-lcfilter="mastered">已掌握</button>
+            </div>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="lc-table">
+              <thead>
+                <tr>
+                  <th>题目 & 思路</th>
+                  <th>专题</th>
+                  <th>状态 / 下次复习</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="lcTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 3: Resources & Research Guide -->
+    <section class="tab-panel" id="tab-resources">
+      <div class="diag-box">
+        <h3 style="font-size:1rem;margin-bottom:8px;">🔬 电力市场时序预测 + Stable Learning 效果不理想的 3 大排查方向</h3>
+        <ol style="padding-left:20px;font-size:0.86rem;display:flex;flex-direction:column;gap:6px;">
+          <li><strong>勿在原始滞后特征上硬做样本去相关：</strong>时间序列步长 <code>y<sub>t-1</sub> … y<sub>t-L</sub></code> 天然强自相关，经典 IID 样本重加权（DWR/SRDO）会抹掉时序动态规律。<strong>解法：</strong>转移到低维隐层表征（Patch/Bottleneck）或仅对外生变量（气象/节假日）做去混杂。</li>
+          <li><strong>检查权重塌缩（ESS 暴跌）：</strong>窗口 96 × 10 变量 = 960 维高度共线特征，优化样本权重极易病态。务必打印权重最大/最小值及有效样本量（ESS）诊断。</li>
+          <li><strong>先剥离幅值非平稳性，再做稳定学习：</strong>电力负荷/电价存在剧烈均值方差漂移，需先叠加 <code>RevIN</code> / 趋势-季节分解去掉一二阶统计漂移，再用 Stable Learning 处理跨季节/极端天气的伪相关漂移（可结合 <code>Chronos</code> / <code>Timer</code> 冲击 CCF-A/B 或 IEEE TKDE）。</li>
+        </ol>
+      </div>
+
+      <div class="res-grid" id="resourceGrid"></div>
+    </section>
+  </div>
+
+  <!-- Daily Check-in Modal -->
+  <div class="modal-backdrop" id="checkinModal">
+    <div class="modal">
+      <div class="card-header" style="margin-bottom:12px;">
+        <div class="card-title" id="modalDateTitle">📝 每日学习打卡</div>
+        <button class="del-task-btn" id="closeModal" style="font-size:1.2rem;">✕</button>
+      </div>
+      <div class="form-stack">
+        <div>
+          <label class="form-label">选择日期</label>
+          <input type="date" class="input" id="checkinDate" style="width:100%" min="2026-11-25" max="2027-02-25" />
+        </div>
+        <div>
+          <label class="form-label">有效学习时长（小时）</label>
+          <input type="number" class="input" id="checkinHours" style="width:100%" min="0" max="16" step="0.5" value="2.5" />
+        </div>
+        <div>
+          <label class="form-label">今日完成摘要 / 实验感悟（可选）</label>
+          <textarea class="textarea" id="checkinNote" placeholder="例：手敲完 mini-GPT，跑通 TSLib PatchTST，刷了3道双指针"></textarea>
+        </div>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:6px;">
+          <button class="btn" id="cancelModal">取消</button>
+          <button class="btn btn-emerald" id="saveCheckin">保存打卡</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">已保存</div>
+
+  <script>
+    // ===================== 1. Plan Data (12 Weeks) =====================
+    const PLAN_START = '2026-11-25';
+    const PLAN_END = '2027-02-25';
+    const CNY_DATES = new Set(['2027-02-04', '2027-02-05', '2027-02-06', '2027-02-07', '2027-02-08']);
+
+    function biliLink(kw) {
+      return `https://search.bilibili.com/all?keyword=${encodeURIComponent(kw)}`;
+    }
+
+    const WEEKS = [
+      {
+        id: 'w1', num: 1, phase: 1,
+        start: '2026-11-25', end: '2026-12-01',
+        title: '火速脱离 PyTorch 新手村',
+        subtitle: '停掉黑马慢速课，用工程化节奏打通 PyTorch + Linux + TSLib 基线',
+        tasks: [
+          { id: 'w1-c1', cat: 'course', text: 'B站“我是土堆 PyTorch”跳看：P6-7(Dataset)、P15(DataLoader)、P16-22(nn.Module/Loss/Optim)、P26-29(保存与GPU训练)，1.5倍速2-3天过完', links: [{ label: 'B站搜：我是土堆 PyTorch', url: biliLink('我是土堆 PyTorch') }] },
+          { id: 'w1-c2', cat: 'course', text: 'B站“跟李沐学AI 动手学深度学习”：看第24-26节（模型构造、参数管理、自定义层、GPU）', links: [{ label: 'B站搜：李沐 动手学深度学习', url: biliLink('跟李沐学AI 动手学深度学习') }] },
+          { id: 'w1-l1', cat: 'code', text: '配置好实验室 Linux SSH (VSCode Remote-SSH) + Conda + Git 基础工作流' },
+          { id: 'w1-l2', cat: 'code', text: 'LeetCode Hot 100【哈希 + 双指针】10题（两数之和、字母异位词分组、最长连续序列、移动零、盛最多水的容器、三数之和等）', links: [{ label: 'LeetCode Hot 100', url: 'https://leetcode.cn/studyplan/top-100-liked/' }] },
+          { id: 'w1-r1', cat: 'research', text: '拉取清华 Time-Series-Library (TSLib)，读懂 exp_long_term_forecasting.py 训练验证框架', links: [{ label: 'GitHub: TSLib', url: 'https://github.com/thuml/Time-Series-Library' }] },
+          { id: 'w1-r2', cat: 'research', text: '将电力市场数据集接入 TSLib，跑通 PatchTST 与 iTransformer 两个基准模型，记录 MSE/MAE' },
+          { id: 'w1-d1', cat: 'deliverable', text: '【验收】脱离视频独立手写一份 Dataset → DataLoader → nn.Module → GPU 训练模板脚本' }
+        ]
+      },
+      {
+        id: 'w2', num: 2, phase: 1,
+        start: '2026-12-02', end: '2026-12-08',
+        title: '彻底攻克 RNN 与 Attention 机制',
+        subtitle: '打通序列建模维度直觉，手写多头注意力，诊断 Stable Learning 掉点原因',
+        tasks: [
+          { id: 'w2-c1', cat: 'course', text: '“跟李沐学AI”速看 RNN/GRU/LSTM 章节，重点精看【注意力机制】全章（评分函数、多头注意力、自注意力与位置编码）', links: [{ label: 'B站搜：李沐 注意力机制', url: biliLink('跟李沐学AI 注意力机制') }] },
+          { id: 'w2-c2', cat: 'course', text: '看 3Blue1Brown《深度学习之 Transformer / 注意力机制可视化》（2集共50分钟建立几何直觉）', links: [{ label: 'B站搜：3Blue1Brown Transformer', url: biliLink('3Blue1Brown Transformer 注意力') }] },
+          { id: 'w2-l1', cat: 'code', text: '纯 PyTorch（不调 nn.MultiheadAttention）手写 Scaled Dot-Product Attention 与 Multi-Head Attention，打印每步 shape' },
+          { id: 'w2-l2', cat: 'code', text: 'LeetCode【滑动窗口 + 子串 + 数组】10题（无重复最长子串、异位词、和为K子数组、最大子数组和、合并区间），配灵神精讲', links: [{ label: 'B站搜：灵茶山艾府 滑动窗口', url: biliLink('灵茶山艾府 滑动窗口') }] },
+          { id: 'w2-r1', cat: 'research', text: '【关键诊断】打印之前 Stable Learning 在电力数据上算出的样本权重分布（最大/最小值、有效样本量 ESS）及 Loss 曲线，定位是否发生权重塌缩' },
+          { id: 'w2-d1', cat: 'deliverable', text: '【验收】白纸闭眼推导 Attention 公式并解释除以 √d_k 的方差稳定原理；形成 Stable Learning 掉点诊断图' }
+        ]
+      },
+      {
+        id: 'w3', num: 3, phase: 1,
+        start: '2026-12-09', end: '2026-12-15',
+        title: '手撕 GPT + 吃透现代大模型组件',
+        subtitle: '跟 Karpathy 逐行手敲 mini-GPT，引入非平稳时序先验修复 Stable Learning',
+        tasks: [
+          { id: 'w3-c1', cat: 'course', text: '【神课必看】Andrej Karpathy《从零构建 GPT》(2小时双语)，逐行跟着敲完完整代码', links: [{ label: 'B站搜：Karpathy 从零构建GPT', url: biliLink('Karpathy 从零构建GPT') }] },
+          { id: 'w3-c2', cat: 'course', text: '李沐《Transformer 论文逐段精读》+ 学习 RoPE、RMSNorm、SwiGLU、GQA、KV Cache 原理（可配 Datawhale Happy-LLM）', links: [{ label: 'B站搜：李沐 Transformer 论文精读', url: biliLink('李沐 Transformer 论文精读') }, { label: 'GitHub: Happy-LLM', url: 'https://github.com/datawhalechina/happy-llm' }] },
+          { id: 'w3-l1', cat: 'code', text: '在自己敲的 nanoGPT 上做魔改练习：把绝对位置编码换成 RoPE，把 LayerNorm 换成 RMSNorm 并跑通' },
+          { id: 'w3-l2', cat: 'code', text: 'LeetCode【矩阵 + 链表】10题（矩阵置零、螺旋矩阵、反转链表、环形链表 II、合并有序链表、高频必考 LRU 缓存）' },
+          { id: 'w3-r1', cat: 'research', text: '精读 3 篇非平稳时序论文：RevIN (ICLR 22)、Non-stationary Transformers (NeurIPS 22)、Dish-TS (AAAI 23)' },
+          { id: 'w3-r2', cat: 'research', text: '在电力数据上做对照实验：先加 RevIN 消除幅值漂移，再叠加 Stable Learning，对比前后效果' },
+          { id: 'w3-d1', cat: 'deliverable', text: '【验收】GitHub 提交可运行的 mini-GPT 代码 + 整理 1 份《Transformer & LLM 核心八股笔记》' }
+        ]
+      },
+      {
+        id: 'w4', num: 4, phase: 1,
+        start: '2026-12-16', end: '2026-12-22',
+        title: 'HuggingFace 入门 + 科研阶段复盘',
+        subtitle: '跑通本地开源大模型推理，探索隐层/外生特征去混杂并向导师汇报',
+        tasks: [
+          { id: 'w4-c1', cat: 'course', text: 'B站速看 HuggingFace Transformers 实战（Tokenizer、AutoModelForCausalLM、generate 解码参数 Temperature/Top-p/Top-k）', links: [{ label: 'B站搜：HuggingFace Transformers 教程', url: biliLink('HuggingFace Transformers 教程') }] },
+          { id: 'w4-c2', cat: 'course', text: '看 Karpathy《Let\'s build the GPT Tokenizer》，彻底理解 BPE 分词原理', links: [{ label: 'B站搜：Karpathy Tokenizer', url: biliLink('Karpathy Tokenizer') }] },
+          { id: 'w4-l1', cat: 'code', text: '用实验室 GPU 跑通 Qwen2.5-7B-Instruct 或 Qwen3-8B 本地批量推理，测试不同解码参数效果' },
+          { id: 'w4-l2', cat: 'code', text: '【刷题复习周】二刷前 3 周全部 30 题中的错题，目标做到 10 分钟内独立盲写 AC' },
+          { id: 'w4-r1', cat: 'research', text: '改进 Stable Learning：把去相关从“原始滞后步长”迁移到“隐层表征 / 仅外生协变量（气象、日历）”，产出第 1 个月完整实验对比表' },
+          { id: 'w4-d1', cat: 'deliverable', text: '【验收】LeetCode 稳固 30 题；组会向鲍老师汇报一次清晰的实验诊断与改进结果' }
+        ]
+      },
+      {
+        id: 'w5', num: 5, phase: 2,
+        start: '2026-12-23', end: '2026-12-29',
+        title: '期末缓冲①：微调原理与二叉树基础',
+        subtitle: '兼顾期末课程复习，每天保底 1.5h 啃下 LoRA 与对齐理论',
+        tasks: [
+          { id: 'w5-c1', cat: 'course', text: '看李宏毅生成式 AI 课程：模型微调（LoRA）、Alignment（RLHF / DPO / GRPO）章节，建立清晰全局观', links: [{ label: 'B站搜：李宏毅 生成式人工智能', url: biliLink('李宏毅 生成式人工智能') }] },
+          { id: 'w5-l1', cat: 'code', text: 'LeetCode【二叉树基础】8题（前中后序遍历、层序遍历、最大深度、翻转二叉树、对称二叉树），配灵神精讲', links: [{ label: 'B站搜：灵茶山艾府 二叉树', url: biliLink('灵茶山艾府 二叉树') }] },
+          { id: 'w5-r1', cat: 'research', text: '高效推进研一期末课程论文（尽量把选题往“时序大模型/因果稳定学习”靠拢，一鱼两吃）' },
+          { id: 'w5-d1', cat: 'deliverable', text: '【验收】能口述 SFT、LoRA 低秩分解、DPO 相比 PPO 的核心区别' }
+        ]
+      },
+      {
+        id: 'w6', num: 6, phase: 2,
+        start: '2026-12-30', end: '2027-01-05',
+        title: '期末缓冲②：显存估算与微调预习',
+        subtitle: '考期保底刷题不断档，通读 Self-LLM / LLaMA-Factory 文档',
+        tasks: [
+          { id: 'w6-c1', cat: 'course', text: 'B站看硬核讲解：LoRA/QLoRA 原理、大模型训练显存估算公式（权重+梯度+优化器+激活）、DeepSpeed ZeRO 1/2/3', links: [{ label: 'B站搜：大模型显存估算 DeepSpeed ZeRO', url: biliLink('大模型显存估算 DeepSpeed ZeRO') }] },
+          { id: 'w6-c2', cat: 'course', text: '通读 Datawhale Self-LLM 关于 Qwen 与 LLaMA-Factory 的实操文档，搞懂 Alpaca / ShareGPT 微调数据格式', links: [{ label: 'GitHub: Self-LLM', url: 'https://github.com/datawhalechina/self-llm' }] },
+          { id: 'w6-l1', cat: 'code', text: 'LeetCode【二叉树进阶】7题（验证 BST、最近公共祖先 LCA、前序中序构造二叉树、二叉树最大路径和）' },
+          { id: 'w6-r1', cat: 'research', text: '收尾期末考试与课程作业；下载整理好后续要读的时序基础模型论文 PDF' },
+          { id: 'w6-d1', cat: 'deliverable', text: '【验收】LeetCode 累计 45 题；整理完《大模型微调与显存计算笔记》' }
+        ]
+      },
+      {
+        id: 'w7', num: 7, phase: 2,
+        start: '2027-01-06', end: '2027-01-12',
+        title: '亲手跑通 LoRA 微调 + 时序基础模型',
+        subtitle: '考完立刻上手实战：微调一个 Text2SQL 小模型 + 跑通 Chronos/Timer',
+        tasks: [
+          { id: 'w7-c1', cat: 'course', text: 'B站看近期 LLaMA-Factory 微调 Qwen 实战 + vLLM 部署大模型实战（重点理解 PagedAttention）', links: [{ label: 'B站搜：LLaMA-Factory 微调 Qwen', url: biliLink('LLaMA-Factory 微调 Qwen') }, { label: 'B站搜：vLLM 部署实战', url: biliLink('vLLM 部署实战') }] },
+          { id: 'w7-l1', cat: 'code', text: '【微调实战】用实验室卡或 AutoDL 租 4090，用 LLaMA-Factory 对 Qwen 7B/8B 跑通 Text2SQL (Spider/CSpider) 的 QLoRA 微调，并用 vLLM 拉起 OpenAI 兼容 API' },
+          { id: 'w7-l2', cat: 'code', text: 'LeetCode【图论 + 回溯】10题（岛屿数量、腐烂的橘子、课程表、全排列、子集、组合总和、括号生成、N皇后），配灵神回溯精讲', links: [{ label: 'B站搜：灵茶山艾府 回溯', url: biliLink('灵茶山艾府 回溯') }] },
+          { id: 'w7-r1', cat: 'research', text: '精读 2 篇时序基础模型顶会论文：Amazon Chronos 与 清华 Timer (ICML 24) / Google TimesFM' },
+          { id: 'w7-r2', cat: 'research', text: '跑通其中 1 个开源时序基础模型在电力市场数据上的 Zero-shot 与微调对比实验', links: [{ label: 'GitHub: Chronos', url: 'https://github.com/amazon-science/chronos-forecasting' }] },
+          { id: 'w7-d1', cat: 'deliverable', text: '【验收】输出一份完整的微调实验记录（Loss 曲线 + 微调前后 SQL Case 对比）与时序基础模型首版实验结果' }
+        ]
+      },
+      {
+        id: 'w8', num: 8, phase: 2,
+        start: '2027-01-13', end: '2027-01-19',
+        title: '攻克 RAG 全链路 + Agent/MCP 机制',
+        subtitle: '寒假正式开启！打通混合检索/Rerank、LangGraph 状态机与科研 Idea 成型',
+        tasks: [
+          { id: 'w8-c1', cat: 'course', text: 'B站看 RAG 进阶优化（文档切分、BM25+向量混合检索、Rerank、RAGAS 评测）', links: [{ label: 'B站搜：RAG 进阶优化 Rerank 评测', url: biliLink('RAG 进阶优化 Rerank 评测') }] },
+          { id: 'w8-c2', cat: 'course', text: 'B站看 LangGraph 实战 + MCP 协议原理与手写 MCP Server（配 Datawhale Hello-Agents 文档）', links: [{ label: 'B站搜：LangGraph 实战教程', url: biliLink('LangGraph 实战教程') }, { label: 'B站搜：MCP 协议实战', url: biliLink('MCP 协议实战') }] },
+          { id: 'w8-l1', cat: 'code', text: '敲两个最小 Demo：① BGE-M3 + BGE-Reranker 混合检索 RAG；② 原生 Function Calling ReAct 循环 + LangGraph 状态机改写' },
+          { id: 'w8-l2', cat: 'code', text: 'LeetCode【二分查找 + 栈与堆】10题（旋转数组搜索、有效括号、每日温度、第K大元素、前K个高频元素），配灵神二分精讲', links: [{ label: 'B站搜：灵茶山艾府 二分查找', url: biliLink('灵茶山艾府 二分查找') }] },
+          { id: 'w8-r1', cat: 'research', text: '【论文 Motivation 实验】对比传统模型与时序基础模型在跨季节/极端天气/电价突变（OOD 场景）下的失效案例，写下 2-3 个可发 CCF-A/B 或 IEEE Trans 的具体 Idea' },
+          { id: 'w8-d1', cat: 'deliverable', text: '【验收】LeetCode 累计 65 题；RAG 与 LangGraph Demo 跑通；完成科研 Idea 草案文档' }
+        ]
+      },
+      {
+        id: 'w9', num: 9, phase: 3,
+        start: '2027-01-20', end: '2027-01-26',
+        title: '代表作项目①：Agent 架构与 Text2SQL 闭环',
+        subtitle: '启动寒假核心简历项目《Data & Forecasting Agent》，先打通查库与自修复闭环',
+        tasks: [
+          { id: 'w9-p1', cat: 'deliverable', text: '搭建业务模拟数据库（将 Kaggle 电商/零售销量数据导入 SQLite/PostgreSQL）+ 编写 15 份业务规则/促销手册 Markdown 文档' },
+          { id: 'w9-p2', cat: 'deliverable', text: '基于 LangGraph 实现：意图路由 → Schema 检索（防上下文爆炸）→ Text2SQL 生成 → SQL 执行报错自修复循环（最多重试 3 次）' },
+          { id: 'w9-p3', cat: 'code', text: '将第 7 周微调的 Qwen-Text2SQL 7B 模型接入路由节点，与闭源大模型 API 对比准确率与响应延迟' },
+          { id: 'w9-l1', cat: 'code', text: 'LeetCode【贪心 + 动态规划入门】10题（买卖股票、跳跃游戏、爬楼梯、打家劫舍、零钱兑换、最长递增子序列），必看灵神 DP 精讲', links: [{ label: 'B站搜：灵茶山艾府 动态规划', url: biliLink('灵茶山艾府 动态规划') }] },
+          { id: 'w9-r1', cat: 'research', text: '整理课题组新 Idea 的实验脚本框架，保证寒假结束回校可立即开跑全量实验' }
+        ]
+      },
+      {
+        id: 'w10', num: 10, phase: 3,
+        start: '2027-01-27', end: '2027-02-02',
+        title: '代表作项目②：时序预测 MCP 工具 + RAG 归因',
+        subtitle: '把时序预测能力封装为标准工具，实现“查数 → 预测 → 归因 → 报告”端到端闭环',
+        tasks: [
+          { id: 'w10-p1', cat: 'deliverable', text: '将时序预测模型（PatchTST / Chronos 零样本）+ 残差异常检测 + 自动画折线图封装为标准 Tool / MCP Server 供 Agent 调用' },
+          { id: 'w10-p2', cat: 'deliverable', text: '接入业务知识库 RAG 模块（混合检索 + Rerank）：检测到销量/指标异动时自动检索促销与规则文档进行归因分析' },
+          { id: 'w10-l1', cat: 'code', text: 'LeetCode【动态规划进阶】10题（完全平方数、单词拆分、乘积最大子数组、分割等和子集、不同路径、最小路径和、LCS、编辑距离）' },
+          { id: 'w10-d1', cat: 'deliverable', text: '【验收】跑通端到端完整链路：自然语言提问 → SQL查库 → 时序预测/异常检测 → RAG 归因 → 输出带图表的结构化报告' }
+        ]
+      },
+      {
+        id: 'w11', num: 11, phase: 3,
+        start: '2027-02-03', end: '2027-02-09',
+        title: '春节周：彻底休整 5 天 + Badcase 复盘',
+        subtitle: '2月4日～2月8日彻底放假陪家人，拒绝虚假打卡；其余 2 天轻量复盘',
+        tasks: [
+          { id: 'w11-c1', cat: 'course', text: '【2.4 ～ 2.8 春节假期】彻底休息充电，陪伴家人（不强求刷题写代码）' },
+          { id: 'w11-l1', cat: 'code', text: '【2.3 & 2.9 轻量推进】刷 5 道 Hot 100 技巧/剩余题（只出现一次的数字、多数元素、颜色分类、下一个排列等）' },
+          { id: 'w11-p1', cat: 'deliverable', text: '记录并分类项目运行中的典型 Badcase（SQL 幻觉、多轮工具调用死循环、RAG 召回噪声），列出第 12 周优化清单' },
+          { id: 'w11-r1', cat: 'research', text: '轻松浏览 KDD / ICLR / NeurIPS 最新录用论文标题，收集 3-5 篇灵感参考' }
+        ]
+      },
+      {
+        id: 'w12', num: 12, phase: 3,
+        start: '2027-02-10', end: '2027-02-25',
+        title: '返校收官：定量评测体系 + 开题 PPT + 新简历',
+        subtitle: '用“评测集 + 迭代数据”把项目升级为工业级代表作，完成研一转型闭环',
+        tasks: [
+          { id: 'w12-p1', cat: 'deliverable', text: '【面试最加分】自建 50-100 条评测集（覆盖简单查询、多表关联、时序预测、异常归因），跑通 SQL 执行率(EX)、工具调用率、RAG Hit Rate、LLM-as-a-Judge 评分' },
+          { id: 'w12-p2', cat: 'deliverable', text: '针对 Badcase 完成至少 2 轮优化并记录量化提升表（如加 Schema 召回+自修、加 Rerank、微调小模型降延迟）' },
+          { id: 'w12-p3', cat: 'deliverable', text: '用 Streamlit/Gradio 套简洁 Web 界面录 1 分钟演示 GIF，写高质量 README.md 推上 GitHub' },
+          { id: 'w12-l1', cat: 'code', text: '集中二刷/三刷前 90 题中的核心错题，稳固 Hot 100 高频题（累计达成 90-100 题）' },
+          { id: 'w12-r1', cat: 'research', text: '制作 10 页以内开题 PPT《非平稳与分布偏移下电力市场时序预测痛点与改进（Stable Learning + 基础模型）》，返校第一时间找鲍老师定论文路线' },
+          { id: 'w12-d1', cat: 'deliverable', text: '【终极验收】完成《2027 算法/大模型方向新版简历》，替换掉 ERP 低代码与 LOL 预测，正式迈入算法候选人梯队！' }
+        ]
+      }
+    ];
+
+    const RESOURCES = [
+      { tag: 'PyTorch 速通', color: 'primary', title: '我是土堆《PyTorch 快速入门》', desc: '当工具字典跳看 Dataset、DataLoader、nn.Module、GPU 保存与加载，2-3 天过完，千万别全看。', links: [{ label: 'B站搜索', url: biliLink('我是土堆 PyTorch') }] },
+      { tag: '深度学习核心', color: 'primary', title: '跟李沐学AI《动手学深度学习》', desc: '重点看模型构造、RNN/LSTM、注意力机制全章，以及《Transformer 论文逐段精读》。', links: [{ label: 'B站搜索', url: biliLink('跟李沐学AI 动手学深度学习') }, { label: 'Transformer精读', url: biliLink('李沐 Transformer 论文精读') }] },
+      { tag: '大模型神课', color: 'purple', title: 'Karpathy《从零构建 GPT》', desc: '2 小时逐行手敲完整 GPT + Tokenizer 详解，看完 1 集顶普通培训班 30 集。', links: [{ label: 'B站双语版', url: biliLink('Karpathy 从零构建GPT') }] },
+      { tag: '前沿与对齐', color: 'purple', title: '李宏毅 生成式人工智能 / LLM', desc: '讲 LoRA、RLHF/DPO/GRPO、Agent 原理极其通透，适合期末缓冲期建立全局观。', links: [{ label: 'B站搜索', url: biliLink('李宏毅 生成式人工智能') }] },
+      { tag: '开源大模型实战', color: 'purple', title: 'Datawhale Happy-LLM / Self-LLM / Hello-Agents', desc: '开源社区最新教程，涵盖 Qwen 部署、LLaMA-Factory 微调与现代 Agent 实战。', links: [{ label: 'Happy-LLM', url: 'https://github.com/datawhalechina/happy-llm' }, { label: 'Self-LLM', url: 'https://github.com/datawhalechina/self-llm' }] },
+      { tag: 'RAG & Agent 工程', color: 'purple', title: 'LangGraph + MCP 协议 + RAG 进阶', desc: '只看 2025-2026 年现代 Agent 教程，重点掌握混合检索、Rerank、状态机与 Eval 评测。', links: [{ label: 'LangGraph', url: biliLink('LangGraph 实战教程') }, { label: 'MCP 协议', url: biliLink('MCP 协议实战') }] },
+      { tag: '算法刷题', color: 'emerald', title: '灵茶山艾府《基础算法精讲》+ Hot 100', desc: '必看滑动窗口、二分、二叉树、回溯、动态规划五讲，模板清晰极适合数理背景同学。', links: [{ label: 'B站搜灵神', url: biliLink('灵茶山艾府 基础算法精讲') }, { label: 'Hot 100 题单', url: 'https://leetcode.cn/studyplan/top-100-liked/' }] },
+      { tag: '时序科研底座', color: 'amber', title: 'TSLib + 时序基础模型 (Chronos / Timer)', desc: '清华时序预测统一代码库 + Amazon Chronos，构建电力市场 OOD 对比基准与论文实验。', links: [{ label: 'TSLib', url: 'https://github.com/thuml/Time-Series-Library' }, { label: 'Chronos', url: 'https://github.com/amazon-science/chronos-forecasting' }] }
+    ];
+
+    // ===================== 2. Persistent State =====================
+    const STORAGE_KEY = 'hust_llm_3month_planner_v1';
+
+    function defaultState() {
+      return {
+        theme: 'light',
+        checked: {},         // taskId -> boolean
+        customTasks: {},     // weekId -> [{id, cat, text}]
+        weekNotes: {},       // weekId -> string
+        checkins: {},        // 'YYYY-MM-DD' -> {hours: number, note: string}
+        lcCount: 0,
+        lcReviews: [],       // [{id, title, topic, diff, note, createdAt, stage: 0|1|2, nextReview: 'YYYY-MM-DD'}]
+        selectedWeek: null
+      };
+    }
+
+    let state = loadState();
+    let currentPhaseFilter = 'all';
+    let currentLcFilter = 'all';
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return defaultState();
+        return Object.assign(defaultState(), JSON.parse(raw));
+      } catch (e) {
+        return defaultState();
+      }
+    }
+
+    function saveState(silent = true) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      if (!silent) showToast('进度已自动保存');
+    }
+
+    function showToast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => el.classList.remove('show'), 2000);
+    }
+
+    // ===================== 3. Date Helpers =====================
+    function fmtDate(d) {
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${y}-${m}-${day}`;
+    }
+
+    function parseDate(s) {
+      const [y, m, d] = s.split('-').map(Number);
+      return new Date(y, m - 1, d);
+    }
+
+    function addDays(s, n) {
+      const d = parseDate(s);
+      d.setDate(d.getDate() + n);
+      return fmtDate(d);
+    }
+
+    function diffDays(a, b) {
+      return Math.round((parseDate(b) - parseDate(a)) / 86400000);
+    }
+
+    function getTodayStr() {
+      return fmtDate(new Date());
+    }
+
+    function getCurrentWeekObj() {
+      const today = getTodayStr();
+      for (const w of WEEKS) {
+        if (today >= w.start && today <= w.end) return w;
+      }
+      if (today < PLAN_START) return WEEKS[0];
+      return WEEKS[WEEKS.length - 1];
+    }
+
+    function getAllTasksForWeek(w) {
+      return [...w.tasks, ...(state.customTasks[w.id] || [])];
+    }
+
+    function getWeekStats(w) {
+      const tasks = getAllTasksForWeek(w);
+      const done = tasks.filter(t => state.checked[t.id]).length;
+      const pct = tasks.length ? Math.round((done / tasks.length) * 100) : 0;
+      return { total: tasks.length, done, pct };
+    }
+
+    // ===================== 4. Rendering =====================
+    function applyTheme() {
+      document.documentElement.setAttribute('data-theme', state.theme);
+    }
+
+    function renderHeaderAndKPIs() {
+      const today = getTodayStr();
+      const currentW = getCurrentWeekObj();
+      const totalPlanDays = diffDays(PLAN_START, PLAN_END) + 1;
+      const elapsed = diffDays(PLAN_START, today) + 1;
+      const cnyDiff = diffDays(today, '2027-02-06');
+
+      document.getElementById('todayText').textContent = `今天：${today}`;
+
+      let badgeText = '';
+      if (today < PLAN_START) {
+        badgeText = `即将开启 · 倒计时 ${diffDays(today, PLAN_START)} 天`;
+      } else if (today > PLAN_END) {
+        badgeText = `计划已收官 · 共 ${totalPlanDays} 天`;
+      } else {
+        badgeText = `进行中 · 第 ${elapsed}/${totalPlanDays} 天 · 当前第 ${currentW.num} 周`;
+      }
+      document.getElementById('liveSyncBadge').textContent = badgeText;
+
+      // Overall task completion
+      let totalTasks = 0, doneTasks = 0;
+      WEEKS.forEach(w => {
+        const s = getWeekStats(w);
+        totalTasks += s.total;
+        doneTasks += s.done;
+      });
+      const pct = totalTasks ? Math.round((doneTasks / totalTasks) * 100) : 0;
+      document.getElementById('kpiOverallPct').textContent = `${pct}%`;
+      document.getElementById('kpiOverallDetail').textContent = `已完成 ${doneTasks} / ${totalTasks} 项任务`;
+
+      const circ = 2 * Math.PI * 28;
+      document.getElementById('overallRing').style.strokeDashoffset = circ * (1 - pct / 100);
+
+      // LeetCode
+      document.getElementById('kpiLcCount').textContent = state.lcCount;
+      document.getElementById('kpiLcBar').style.width = `${Math.min(100, state.lcCount)}%`;
+
+      // Streak & Hours
+      const checkinEntries = Object.entries(state.checkins).filter(([, v]) => v.hours > 0);
+      const totalHours = checkinEntries.reduce((acc, [, v]) => acc + Number(v.hours || 0), 0);
+      // Calculate current streak up to today or yesterday
+      let streak = 0;
+      let cursor = state.checkins[today]?.hours > 0 ? today : addDays(today, -1);
+      while (state.checkins[cursor]?.hours > 0) {
+        streak++;
+        cursor = addDays(cursor, -1);
+      }
+      document.getElementById('kpiStreak').textContent = streak;
+      document.getElementById('kpiHours').textContent = Math.round(totalHours * 10) / 10;
+      document.getElementById('kpiCheckinSub').textContent = checkinEntries.length
+        ? `已打卡 ${checkinEntries.length} 天 · 均投入 ${(totalHours / checkinEntries.length).toFixed(1)}h/天`
+        : '点击右上角“今日打卡”记录每日投入';
+
+      // Focus
+      document.getElementById('kpiCurrentWeekTitle').textContent = `W${currentW.num} · ${currentW.title.slice(0, 11)}`;
+      document.getElementById('kpiTimelineSub').textContent = cnyDiff > 0
+        ? `阶段${['一','二','三'][currentW.phase - 1]} · 距春节(2.6) ${cnyDiff} 天`
+        : `阶段${['一','二','三'][currentW.phase - 1]} · 返校冲刺收官期`;
+    }
+
+    function renderWeeklyChart() {
+      const box = document.getElementById('weeklyChartBox');
+      const currentW = getCurrentWeekObj();
+      const width = 620, height = 185, padL = 30, padR = 12, padT = 22, padB = 34;
+      const chartW = width - padL - padR;
+      const chartH = height - padT - padB;
+      const barGap = 10;
+      const barW = (chartW - barGap * 11) / 12;
+
+      let svg = `<svg viewBox="0 0 ${width} ${height}" style="width:100%;min-width:460px;height:auto;display:block;">`;
+      // Grid lines
+      [0, 50, 100].forEach(val => {
+        const y = padT + chartH * (1 - val / 100);
+        svg += `<line x1="${padL}" y1="${y}" x2="${width - padR}" y2="${y}" stroke="var(--border)" stroke-dasharray="3,3" />`;
+        svg += `<text x="${padL - 6}" y="${y + 4}" text-anchor="end" font-size="10" fill="var(--text-muted)">${val}%</text>`;
+      });
+
+      WEEKS.forEach((w, idx) => {
+        const s = getWeekStats(w);
+        const x = padL + idx * (barW + barGap);
+        const h = Math.max(4, (s.pct / 100) * chartH);
+        const y = padT + chartH - h;
+        const isSelected = state.selectedWeek === w.id;
+        const isCurrent = currentW.id === w.id;
+        const fill = s.pct === 100 ? 'var(--emerald)' : (isCurrent ? 'var(--rose)' : 'var(--primary)');
+
+        svg += `<g style="cursor:pointer" onclick="selectWeek('${w.id}')">`;
+        svg += `<rect x="${x}" y="${padT}" width="${barW}" height="${chartH}" rx="6" fill="var(--surface-2)" opacity="${isSelected ? 1 : 0.65}" stroke="${isSelected ? 'var(--primary)' : 'none'}" stroke-width="1.5" />`;
+        svg += `<rect x="${x}" y="${y}" width="${barW}" height="${h}" rx="6" fill="${fill}" opacity="${s.pct === 0 ? 0.25 : 0.92}" />`;
+        if (s.pct > 0) {
+          svg += `<text x="${x + barW / 2}" y="${y - 5}" text-anchor="middle" font-size="9.5" font-weight="700" fill="var(--text)">${s.pct}%</text>`;
+        }
+        svg += `<text x="${x + barW / 2}" y="${height - 14}" text-anchor="middle" font-size="11" font-weight="${isCurrent || isSelected ? 800 : 600}" fill="${isCurrent ? 'var(--rose)' : 'var(--text-muted)'}">W${w.num}</text>`;
+        if (isCurrent) {
+          svg += `<circle cx="${x + barW / 2}" cy="${height - 5}" r="3" fill="var(--rose)" />`;
+        }
+        svg += `</g>`;
+      });
+
+      svg += `</svg>`;
+      box.innerHTML = svg;
+    }
+
+    function renderPillarsAndRadar() {
+      const cats = [
+        { key: 'code', name: '代码与 LeetCode', color: 'var(--emerald)' },
+        { key: 'course', name: 'PyTorch & 大模型课', color: 'var(--primary)' },
+        { key: 'research', name: '时序 & 稳定学习科研', color: 'var(--amber)' },
+        { key: 'deliverable', name: 'Agent 项目与交付', color: 'var(--purple)' }
+      ];
+
+      const stats = cats.map(c => {
+        let total = 0, done = 0;
+        WEEKS.forEach(w => {
+          getAllTasksForWeek(w).forEach(t => {
+            if (t.cat === c.key) {
+              total++;
+              if (state.checked[t.id]) done++;
+            }
+          });
+        });
+        const pct = total ? Math.round((done / total) * 100) : 0;
+        return { ...c, total, done, pct };
+      });
+
+      // Bars
+      document.getElementById('pillarList').innerHTML = stats.map(s => `
+        <div>
+          <div class="pillar-row-head">
+            <span>${s.name}</span>
+            <span class="mono" style="color:var(--text-muted)">${s.done}/${s.total} (${s.pct}%)</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:${s.pct}%;background:${s.color}"></div>
+          </div>
+        </div>
+      `).join('');
+
+      // 4-Axis SVG Radar
+      const cx = 75, cy = 75, rMax = 52;
+      const angles = [-Math.PI / 2, 0, Math.PI / 2, Math.PI];
+      const labels = ['刷题', 'LLM', '科研', '项目'];
+
+      let radar = `<svg width="150" height="150" viewBox="0 0 150 150">`;
+      [0.33, 0.66, 1].forEach(ratio => {
+        const pts = angles.map(a => `${cx + Math.cos(a) * rMax * ratio},${cy + Math.sin(a) * rMax * ratio}`).join(' ');
+        radar += `<polygon points="${pts}" fill="none" stroke="var(--border)" stroke-width="1" />`;
+      });
+      angles.forEach((a, i) => {
+        const x2 = cx + Math.cos(a) * rMax;
+        const y2 = cy + Math.sin(a) * rMax;
+        radar += `<line x1="${cx}" y1="${cy}" x2="${x2}" y2="${y2}" stroke="var(--border)" />`;
+        const lx = cx + Math.cos(a) * (rMax + 14);
+        const ly = cy + Math.sin(a) * (rMax + 14) + 3;
+        radar += `<text x="${lx}" y="${ly}" text-anchor="middle" font-size="10" font-weight="700" fill="var(--text-muted)">${labels[i]}</text>`;
+      });
+
+      const dataPts = stats.map((s, i) => {
+        const ratio = Math.max(0.12, s.pct / 100);
+        return `${cx + Math.cos(angles[i]) * rMax * ratio},${cy + Math.sin(angles[i]) * rMax * ratio}`;
+      }).join(' ');
+      radar += `<polygon points="${dataPts}" fill="var(--primary-soft)" stroke="var(--primary)" stroke-width="2" />`;
+      stats.forEach((s, i) => {
+        const ratio = Math.max(0.12, s.pct / 100);
+        const px = cx + Math.cos(angles[i]) * rMax * ratio;
+        const py = cy + Math.sin(angles[i]) * rMax * ratio;
+        radar += `<circle cx="${px}" cy="${py}" r="3.5" fill="var(--primary)" />`;
+      });
+      radar += `</svg>`;
+      document.getElementById('radarChartBox').innerHTML = radar;
+    }
+
+    function renderHeatmap() {
+      const grid = document.getElementById('heatmapGrid');
+      const today = getTodayStr();
+      const totalDays = diffDays(PLAN_START, PLAN_END) + 1;
+      let html = '';
+
+      for (let i = 0; i < totalDays; i++) {
+        const dStr = addDays(PLAN_START, i);
+        const rec = state.checkins[dStr];
+        const hrs = rec ? Number(rec.hours || 0) : 0;
+        let lvl = 0;
+        if (hrs > 0 && hrs < 1.5) lvl = 1;
+        else if (hrs >= 1.5 && hrs < 3) lvl = 2;
+        else if (hrs >= 3 && hrs < 5) lvl = 3;
+        else if (hrs >= 5) lvl = 4;
+
+        const cls = [
+          'heat-cell',
+          dStr === today ? 'is-today' : '',
+          CNY_DATES.has(dStr) ? 'is-cny' : ''
+        ].filter(Boolean).join(' ');
+
+        const tip = `${dStr}${CNY_DATES.has(dStr) ? ' (春节休整)' : ''} · ${hrs}h${rec?.note ? ' · ' + rec.note : ''}`;
+        html += `<div class="${cls}" data-level="${lvl}" title="${escapeHtml(tip)}" onclick="openCheckinModal('${dStr}')">${dStr.slice(8)}</div>`;
+      }
+      grid.innerHTML = html;
+    }
+
+    function renderWeekSidebar() {
+      const sidebar = document.getElementById('weekSidebar');
+      const currentW = getCurrentWeekObj();
+      const filtered = WEEKS.filter(w => currentPhaseFilter === 'all' || String(w.phase) === currentPhaseFilter);
+
+      if (!filtered.some(w => w.id === state.selectedWeek) && filtered.length) {
+        state.selectedWeek = filtered[0].id;
+      }
+
+      sidebar.innerHTML = filtered.map(w => {
+        const s = getWeekStats(w);
+        const isActive = state.selectedWeek === w.id;
+        const isCurrent = currentW.id === w.id;
+        return `
+          <button class="week-nav-item ${isActive ? 'active' : ''} ${isCurrent ? 'is-current' : ''}" onclick="selectWeek('${w.id}')">
+            <div class="wn-top">
+              <span>第 ${w.num} 周 <span class="mono" style="font-weight:500;color:var(--text-muted);font-size:0.72rem">${w.start.slice(5)}~${w.end.slice(5)}</span></span>
+              <span class="mono" style="font-size:0.74rem;color:${s.pct === 100 ? 'var(--emerald)' : 'var(--primary)'}">${s.pct}%</span>
+            </div>
+            <div class="wn-title">${escapeHtml(w.title)}</div>
+            <div class="wn-bar"><div class="wn-bar-fill" style="width:${s.pct}%;background:${s.pct === 100 ? 'var(--emerald)' : 'var(--primary)'}"></div></div>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function renderWeekDetail() {
+      const w = WEEKS.find(x => x.id === state.selectedWeek) || WEEKS[0];
+      const currentW = getCurrentWeekObj();
+      const stats = getWeekStats(w);
+      const phaseNames = { 1: '阶段一：PyTorch与底层', 2: '阶段二：微调与Agent', 3: '阶段三：代表作与收尾' };
+      const allTasks = getAllTasksForWeek(w);
+
+      const sections = [
+        { key: 'course', title: '📺 B 站网课与原理精读', cls: '' },
+        { key: 'code', title: '💻 代码实操 & LeetCode 刷题', cls: '' },
+        { key: 'research', title: '🔬 课题组科研（时序 + Stable Learning）', cls: '' },
+        { key: 'deliverable', title: '🎯 本周代表作 / 硬性验收标准', cls: 'deliverable' }
+      ];
+
+      const sectionsHtml = sections.map(sec => {
+        const list = allTasks.filter(t => t.cat === sec.key);
+        if (!list.length) return '';
+        const doneCnt = list.filter(t => state.checked[t.id]).length;
+        return `
+          <div class="section-block ${sec.cls}">
+            <div class="section-title">
+              <span>${sec.title}</span>
+              <span class="mono" style="font-size:0.76rem;color:var(--text-muted)">${doneCnt}/${list.length}</span>
+            </div>
+            <div class="task-list">
+              ${list.map(t => {
+                const isChecked = !!state.checked[t.id];
+                const isCustom = t.id.startsWith('custom-');
+                const linksHtml = (t.links || []).length
+                  ? `<div class="task-links">${t.links.map(l => `<a class="ext-link" href="${l.url}" target="_blank" rel="noopener">↗ ${escapeHtml(l.label)}</a>`).join('')}</div>`
+                  : '';
+                return `
+                  <div class="task-item ${isChecked ? 'checked' : ''}">
+                    <input type="checkbox" class="task-cb" ${isChecked ? 'checked' : ''} onchange="toggleTask('${t.id}')" />
+                    <div class="task-body">
+                      <div class="task-text">${escapeHtml(t.text)}</div>
+                      ${linksHtml}
+                    </div>
+                    ${isCustom ? `<button class="del-task-btn" title="删除自定义任务" onclick="deleteCustomTask('${w.id}','${t.id}')">✕</button>` : ''}
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      const noteVal = state.weekNotes[w.id] || '';
+      const prevW = WEEKS[w.num - 2];
+      const nextW = WEEKS[w.num];
+
+      document.getElementById('weekDetail').innerHTML = `
+        <div class="week-detail-header">
+          <div>
+            <div class="week-tags">
+              <span class="tag tag-phase">${phaseNames[w.phase]}</span>
+              <span class="tag tag-date mono">${w.start} ～ ${w.end}</span>
+              ${currentW.id === w.id ? '<span class="tag tag-current">当前同步周</span>' : ''}
+              ${stats.pct === 100 ? '<span class="tag tag-done">✓ 已全部完成</span>' : ''}
+            </div>
+            <div class="week-detail-title">第 ${w.num} 周：${escapeHtml(w.title)}</div>
+            <div class="week-detail-note">${escapeHtml(w.subtitle)}</div>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center;">
+            ${prevW ? `<button class="btn btn-sm" onclick="selectWeek('${prevW.id}')">← 上一周</button>` : ''}
+            ${nextW ? `<button class="btn btn-sm" onclick="selectWeek('${nextW.id}')">下一周 →</button>` : ''}
+          </div>
+        </div>
+
+        <div style="margin-bottom:16px;">
+          <div style="display:flex;justify-content:space-between;font-size:0.8rem;font-weight:600;margin-bottom:5px;">
+            <span>本周完成度</span>
+            <span class="mono">${stats.done} / ${stats.total} (${stats.pct}%)</span>
+          </div>
+          <div class="bar-track" style="height:9px;">
+            <div class="bar-fill" style="width:${stats.pct}%;background:${stats.pct === 100 ? 'var(--emerald)' : 'var(--primary)'}"></div>
+          </div>
+        </div>
+
+        ${sectionsHtml}
+
+        <!-- Add Custom Task -->
+        <div class="section-block" style="background:var(--surface);">
+          <div class="section-title">➕ 添加本周自定义任务（如组会临时任务、额外论文）</div>
+          <div class="add-task-row">
+            <select class="select" id="customCat">
+              <option value="research">科研任务</option>
+              <option value="code">代码/刷题</option>
+              <option value="course">网课/阅读</option>
+              <option value="deliverable">项目/交付</option>
+            </select>
+            <input class="input" id="customText" style="flex:1;min-width:200px;" placeholder="输入具体任务内容，回车添加..." onkeydown="if(event.key==='Enter')addCustomTask('${w.id}')" />
+            <button class="btn btn-primary btn-sm" onclick="addCustomTask('${w.id}')">添加</button>
+          </div>
+        </div>
+
+        <!-- Weekly Notes & Experiment Log -->
+        <div class="section-block" style="background:var(--surface);margin-bottom:0;">
+          <div class="section-title">
+            <span>📝 本周学习复盘 & 科研实验记录（MSE/MAE、踩坑记录）</span>
+            <span style="font-size:0.74rem;color:var(--text-muted)">输入后自动保存</span>
+          </div>
+          <textarea class="textarea" id="weekNoteArea" placeholder="例：TSLib PatchTST 在电力负荷上 MSE=0.xxx；加 RevIN 后 Stable Learning ESS 从 12 提升至 180..." oninput="updateWeekNote('${w.id}', this.value)">${escapeHtml(noteVal)}</textarea>
+        </div>
+      `;
+    }
+
+    function renderLcReviews() {
+      const today = getTodayStr();
+      const dueCount = state.lcReviews.filter(r => r.stage < 2 && r.nextReview <= today).length;
+      const badge = document.getElementById('dueCountBadge');
+      if (dueCount > 0) {
+        badge.style.display = 'inline-block';
+        badge.textContent = `${dueCount} 待复习`;
+      } else {
+        badge.style.display = 'none';
+      }
+
+      const filtered = state.lcReviews.filter(r => {
+        if (currentLcFilter === 'due') return r.stage < 2 && r.nextReview <= today;
+        if (currentLcFilter === 'mastered') return r.stage >= 2;
+        return true;
+      });
+
+      const tbody = document.getElementById('lcTableBody');
+      if (!filtered.length) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:var(--text-muted);padding:28px;">暂无记录。刷题时遇到卡壳超15分钟的题，立刻记到这里，系统会自动在第3天和第7天提醒你二刷/三刷！</td></tr>`;
+        return;
+      }
+
+      const stageText = ['待3天二刷', '待7天三刷', '已掌握'];
+      tbody.innerHTML = filtered.map(r => {
+        const isDue = r.stage < 2 && r.nextReview <= today;
+        const statusHtml = r.stage >= 2
+          ? `<span class="ok-badge">✓ 已掌握</span>`
+          : isDue
+            ? `<span class="due-badge">🔥 今日到期 (${stageText[r.stage]})</span>`
+            : `<span class="tag tag-date mono">${stageText[r.stage]} · ${r.nextReview}</span>`;
+
+        return `
+          <tr>
+            <td>
+              <div style="font-weight:700;">${escapeHtml(r.title)} <span class="tag tag-date" style="margin-left:4px;">${escapeHtml(r.diff)}</span></div>
+              ${r.note ? `<div style="font-size:0.78rem;color:var(--text-muted);margin-top:3px;">${escapeHtml(r.note)}</div>` : ''}
+            </td>
+            <td><span class="tag tag-phase">${escapeHtml(r.topic)}</span></td>
+            <td>${statusHtml}</td>
+            <td style="white-space:nowrap;">
+              ${r.stage < 2 ? `<button class="btn btn-sm btn-emerald" onclick="advanceLcReview('${r.id}')">✓ 完成复习</button>` : ''}
+              <button class="btn btn-sm" style="margin-left:4px;" onclick="deleteLcReview('${r.id}')">删除</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderResources() {
+      const colorMap = {
+        primary: 'var(--primary-soft);color:var(--primary)',
+        purple: 'var(--purple-soft);color:var(--purple)',
+        emerald: 'var(--emerald-soft);color:var(--emerald)',
+        amber: 'var(--amber-soft);color:var(--amber)'
+      };
+      document.getElementById('resourceGrid').innerHTML = RESOURCES.map(r => `
+        <div class="res-card">
+          <div>
+            <span class="tag" style="background:${colorMap[r.color]}">${escapeHtml(r.tag)}</span>
+            <h4 style="font-size:0.96rem;margin:8px 0 6px;">${escapeHtml(r.title)}</h4>
+            <p style="font-size:0.83rem;color:var(--text-muted);">${escapeHtml(r.desc)}</p>
+          </div>
+          <div class="task-links">
+            ${r.links.map(l => `<a class="ext-link" href="${l.url}" target="_blank" rel="noopener">↗ ${escapeHtml(l.label)}</a>`).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderAll() {
+      applyTheme();
+      renderHeaderAndKPIs();
+      renderWeeklyChart();
+      renderPillarsAndRadar();
+      renderHeatmap();
+      renderWeekSidebar();
+      renderWeekDetail();
+      renderLcReviews();
+    }
+
+    // ===================== 5. Interactive Actions =====================
+    window.selectWeek = function(weekId) {
+      state.selectedWeek = weekId;
+      // Ensure phase filter shows the selected week
+      const w = WEEKS.find(x => x.id === weekId);
+      if (w && currentPhaseFilter !== 'all' && String(w.phase) !== currentPhaseFilter) {
+        currentPhaseFilter = 'all';
+        document.querySelectorAll('#phasePills .pill').forEach(p => {
+          p.classList.toggle('active', p.dataset.phase === 'all');
+        });
+      }
+      // Switch to planner tab if clicking from bar chart while on another tab
+      switchTab('planner');
+      saveState(true);
+      renderWeeklyChart();
+      renderWeekSidebar();
+      renderWeekDetail();
+    };
+
+    window.toggleTask = function(taskId) {
+      state.checked[taskId] = !state.checked[taskId];
+      saveState(false);
+      renderHeaderAndKPIs();
+      renderWeeklyChart();
+      renderPillarsAndRadar();
+      renderWeekSidebar();
+      renderWeekDetail();
+    };
+
+    window.addCustomTask = function(weekId) {
+      const input = document.getElementById('customText');
+      const cat = document.getElementById('customCat').value;
+      const text = input.value.trim();
+      if (!text) return;
+      if (!state.customTasks[weekId]) state.customTasks[weekId] = [];
+      state.customTasks[weekId].push({ id: `custom-${Date.now()}`, cat, text });
+      saveState(false);
+      renderAll();
+    };
+
+    window.deleteCustomTask = function(weekId, taskId) {
+      if (!state.customTasks[weekId]) return;
+      state.customTasks[weekId] = state.customTasks[weekId].filter(t => t.id !== taskId);
+      delete state.checked[taskId];
+      saveState(false);
+      renderAll();
+    };
+
+    window.updateWeekNote = function(weekId, val) {
+      state.weekNotes[weekId] = val;
+      saveState(true);
+    };
+
+    window.openCheckinModal = function(dateStr) {
+      const d = dateStr || (getTodayStr() >= PLAN_START && getTodayStr() <= PLAN_END ? getTodayStr() : PLAN_START);
+      document.getElementById('checkinDate').value = d;
+      const existing = state.checkins[d];
+      document.getElementById('checkinHours').value = existing ? existing.hours : 2.5;
+      document.getElementById('checkinNote').value = existing ? existing.note : '';
+      document.getElementById('modalDateTitle').textContent = `📝 学习打卡 · ${d}`;
+      document.getElementById('checkinModal').classList.add('open');
+    };
+
+    function closeCheckinModal() {
+      document.getElementById('checkinModal').classList.remove('open');
+    }
+
+    window.advanceLcReview = function(id) {
+      const item = state.lcReviews.find(x => x.id === id);
+      if (!item) return;
+      const today = getTodayStr();
+      if (item.stage === 0) {
+        item.stage = 1;
+        item.nextReview = addDays(today, 4); // ~7 days total cycle
+        showToast('已完成3天二刷，已排期7天三刷！');
+      } else if (item.stage === 1) {
+        item.stage = 2;
+        item.nextReview = '';
+        showToast('恭喜彻底掌握该题！');
+      }
+      saveState(true);
+      renderLcReviews();
+    };
+
+    window.deleteLcReview = function(id) {
+      state.lcReviews = state.lcReviews.filter(x => x.id !== id);
+      saveState(false);
+      renderLcReviews();
+    };
+
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tabName));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === `tab-${tabName}`));
+    }
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // ===================== 6. Event Bindings =====================
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+    });
+
+    document.querySelectorAll('#phasePills .pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        currentPhaseFilter = pill.dataset.phase;
+        document.querySelectorAll('#phasePills .pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        renderWeekSidebar();
+        renderWeekDetail();
+      });
+    });
+
+    document.querySelectorAll('#lcFilterPills .pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        currentLcFilter = pill.dataset.lcfilter;
+        document.querySelectorAll('#lcFilterPills .pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        renderLcReviews();
+      });
+    });
+
+    document.getElementById('lcPlus').addEventListener('click', () => {
+      state.lcCount = Math.min(200, state.lcCount + 1);
+      saveState(false);
+      renderHeaderAndKPIs();
+    });
+    document.getElementById('lcMinus').addEventListener('click', () => {
+      state.lcCount = Math.max(0, state.lcCount - 1);
+      saveState(false);
+      renderHeaderAndKPIs();
+    });
+
+    document.getElementById('btnJumpCurrent').addEventListener('click', () => {
+      selectWeek(getCurrentWeekObj().id);
+      showToast(`已定位到第 ${getCurrentWeekObj().num} 周`);
+    });
+
+    document.getElementById('btnCheckin').addEventListener('click', () => openCheckinModal());
+    document.getElementById('closeModal').addEventListener('click', closeCheckinModal);
+    document.getElementById('cancelModal').addEventListener('click', closeCheckinModal);
+    document.getElementById('checkinModal').addEventListener('click', e => {
+      if (e.target.id === 'checkinModal') closeCheckinModal();
+    });
+
+    document.getElementById('checkinDate').addEventListener('change', e => {
+      const d = e.target.value;
+      const existing = state.checkins[d];
+      document.getElementById('checkinHours').value = existing ? existing.hours : 2.5;
+      document.getElementById('checkinNote').value = existing ? existing.note : '';
+      document.getElementById('modalDateTitle').textContent = `📝 学习打卡 · ${d}`;
+    });
+
+    document.getElementById('saveCheckin').addEventListener('click', () => {
+      const d = document.getElementById('checkinDate').value;
+      const hrs = parseFloat(document.getElementById('checkinHours').value) || 0;
+      const note = document.getElementById('checkinNote').value.trim();
+      if (!d) return;
+      if (hrs <= 0 && !note) {
+        delete state.checkins[d];
+      } else {
+        state.checkins[d] = { hours: hrs, note };
+      }
+      saveState(true);
+      closeCheckinModal();
+      renderHeaderAndKPIs();
+      renderHeatmap();
+      showToast(`已完成 ${d} 打卡（${hrs}h）`);
+    });
+
+    document.getElementById('lcForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const title = document.getElementById('lcTitle').value.trim();
+      if (!title) return;
+      const today = getTodayStr();
+      state.lcReviews.unshift({
+        id: `lc-${Date.now()}`,
+        title,
+        topic: document.getElementById('lcTopic').value,
+        diff: document.getElementById('lcDiff').value,
+        note: document.getElementById('lcNote').value.trim(),
+        createdAt: today,
+        stage: 0,
+        nextReview: addDays(today, 3)
+      });
+      state.lcCount = Math.min(200, state.lcCount + 1);
+      document.getElementById('lcTitle').value = '';
+      document.getElementById('lcNote').value = '';
+      saveState(true);
+      renderHeaderAndKPIs();
+      renderLcReviews();
+      showToast('已加入错题本，3天后将提醒二刷！');
+    });
+
+    document.getElementById('btnTheme').addEventListener('click', () => {
+      state.theme = state.theme === 'light' ? 'dark' : 'light';
+      saveState(true);
+      applyTheme();
+    });
+
+    document.getElementById('btnExport').addEventListener('click', () => {
+      const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `study-progress-${getTodayStr()}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('已导出 JSON 备份文件');
+    });
+
+    document.getElementById('btnImport').addEventListener('click', () => {
+      document.getElementById('importFile').click();
+    });
+
+    document.getElementById('importFile').addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = ev => {
+        try {
+          const parsed = JSON.parse(ev.target.result);
+          state = Object.assign(defaultState(), parsed);
+          saveState(true);
+          renderAll();
+          showToast('备份已成功恢复！');
+        } catch (err) {
+          alert('导入失败：JSON 文件格式无效');
+        }
+      };
+      reader.readAsText(file);
+      e.target.value = '';
+    });
+
+    // ===================== 7. Init =====================
+    if (!state.selectedWeek) {
+      state.selectedWeek = getCurrentWeekObj().id;
+    }
+    renderResources();
+    renderAll();
+  </script>
+</body>
+</html>
